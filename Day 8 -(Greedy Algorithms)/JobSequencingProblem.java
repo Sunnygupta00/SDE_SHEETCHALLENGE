@@ -1,4 +1,5 @@
-  int[] JobScheduling(Job arr[], int n)
+// https://practice.geeksforgeeks.org/problems/job-sequencing-problem-1587115620/1#
+int[] JobScheduling(Job arr[], int n)
     {
         Arrays.sort(arr,(a,b)->b.profit-a.profit);// sorting in descending order
         int maxDead=0;// counting no. of deadlines
