@@ -1,0 +1,24 @@
+//https://leetcode.com/problems/single-element-in-a-sorted-array/
+----------------------------------------------------------------------------------------------------------------
+QUESTION : EVERY ELEMENT IS OCCURING ONCE EXCEPT ONE ELEMENT ( AUR SATH ME SORTED BHI HAI ) :)
+IDEA:   FIRST ELEMENT WILL BE ON EVEN 
+        SECOND ELEMENT WILL BE ON ODD
+        THERFORE IF MY MID IS ON EVEN ITS PARTER SHOULD BE ON ODD AND VISE VERSA
+        IF CONDITION IS LIKE THIS WE HAVE TO SHRINK OR GO TO LEFT
+-------------------------------------------------------------------------------------------------------------------
+class Solution {
+    public int singleNonDuplicate(int[] nums) {
+     int start=0;
+        int end=nums.length-2;   // WHY LENGTH -2 AGAR 
+        while(start<=end){
+         int mid=start+(end-start)/2;
+            if(nums[mid]==nums[mid^1]){  // if it is eqal to its corresponding means yaha tak koi gapla nahi hua hai
+                start =mid+1;
+            }else{
+                end=mid-1;
+            }
+        }
+        return nums[start];
+    }
+}
+----------------------------------------------------------------------------------------------------------------------------
