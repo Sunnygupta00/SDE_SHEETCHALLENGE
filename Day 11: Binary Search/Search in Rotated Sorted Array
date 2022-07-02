@@ -1,0 +1,51 @@
+https://leetcode.com/problems/search-in-rotated-sorted-array/
+-------------------------------------------------------------------------------------------------------------------
+BASIC IDEA: STEP 1: FIND INDEX OF ROTATED ARRAY 
+            STEP 2: DO BINARY SEARCH ON BOTH ARRY
+--------------------------------------------------------------------------------------------------------------------
+
+class Solution {
+    public int search(int[] nums, int target) {
+        int secondStart=find(nums);                  /// FINDING THAT INDEX
+         int secondEnd=nums.length-1;
+         if(nums[secondStart]<=target && nums[secondEnd]>=target){
+             return bs(nums,secondStart,secondEnd,target);
+         }
+        return bs(nums,0,secondStart-1,target);
+    }
+-----------------------------------------------------------------------------------------------------------------    
+    public int bs(int nums[],int start, int end, int target){         // SIMPLE BINARY SEARCH
+        if(start>end)return -1;
+        int mid=start+(end-start)/2;
+        if(nums[mid]==target){
+            return mid;
+        }else if(nums[mid]>target){
+            return bs(nums,start,mid-1,target);
+        }else{
+            return bs(nums,mid+1,end,target);
+        }
+    }
+------------------------------------------------------------------------------------------------------------------    
+    public int find(int nums[]){                             // FINDING THAT INDEX
+        int n=nums.length;
+        int start=0;
+        int end=n-1;
+        while(start<=end){
+            int mid=start+(end-start)/2;
+            int next=(mid+1)%n;                            // FOR CYCLING IN NATURE
+            int prev=(mid-1+n)%n;                          // to handle 0th index
+            if(nums[start]<=nums[end]){                     // IF ALREADY SORTED
+                return start;
+            }
+            if(nums[mid]<=nums[prev] && nums[mid]<=nums[next]){  // IF LESS THAN BOTH SIDE
+                return mid;
+            }else if(nums[mid]>=nums[start]){               // MID BADA HAI START SE MEANS VAHA TAK SORTED HAI
+                start=mid+1;
+            }else if(nums[mid]<=nums[end]){                 // MID TO END TAK SORTED HAI
+                end=mid-1;
+            }
+        }
+        return -1;
+    }
+--------------------------------------------------------------------------------------------------------------------------    
+}
